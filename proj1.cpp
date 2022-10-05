@@ -1,5 +1,8 @@
 #include <iostream>
 #include <random>
+#include <algorithm>
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
 class ArrayST
@@ -10,13 +13,8 @@ class ArrayST
 
 
 private:
-int srand(unsigned int seed);
-int size = 1; 
+int size = 100; 
 int *array;
-
-
-int compCount = 0;
-
 
 
 
@@ -38,16 +36,36 @@ bool countGE(int l, int r){
 
 }
 public:
+int compCount = 0;
+
+ArrayST(int n, int max){
+    // srand((unsigned int)time(NULL));
+    srand(8);
+
+
+    array = new int [n];
+    for (int i = 0; i < n; i++)
+    {
+        int random = rand();
+        array[i] = random % max;
+
+    }
+    
+}
+
 ArrayST(int n){
     array = new int[n];
-    size = n;
     for (int i = 0; i < n; i++)
     {
         array[i] = i;
     }
     
 }
-void write5_5(){
+~ArrayST(){
+    delete array;
+
+}
+void write5_15(){
     for (int i = 0; i < size; i++)
     {
         if (i % 25 ==0)
@@ -58,7 +76,8 @@ void write5_5(){
         {
             cout <<"\n";
         }
-        cout <<"%15d " << array[i];
+        printf("%15d", array[i]);
+
         
     }
     
@@ -84,27 +103,18 @@ int main(){
     cout <<"\nTest Sort Methods";
  cout <<"Ohio University CS 4040 / 5040";
  cout <<"Programming Assignment 1";
- cout <<"Programmer: Ralph Kelsey";
+ cout <<"Programmer: Roy Frimpong";
  cout <<"2022 09 27";
- ArrayST st01 = new ArrayST(100, 1000);
- System.out.printf("\n\nrandom array st01 %s sorted, ",
+ ArrayST st01 = ArrayST(100, 1000);
+printf("\n\nrandom array st01 %s sorted, ",
  st01.isSorted() ? "is" : "is not");
- System.out.printf("determined with %d comparisons.",
- st01.compCount);
- st01.write5_5_15();
- ArrayST st02 = new ArrayST(100);
- System.out.printf("\n\nordered array st02 %s sorted, ",
+ cout << "determined with " << st01.compCount << "comparisons." << endl;
+ st01.write5_15();
+ ArrayST st02 =  ArrayST(100);
+ printf("\n\nordered array st02 %s sorted, ",
  st02.isSorted() ? "is" : "is not");
- System.out.printf("determined with %d comparisons.",
- st02.compCount);
- st02.write5_5_15();
- System
-.out.println(
-"
-\
-nBye.
-\
-n
-");
+ cout <<"determined with " << st02.compCount << "comparisons." << endl;
+ st02.write5_15();
+ cout <<"\nBye.\n";
 
 }
